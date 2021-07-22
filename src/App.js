@@ -1,19 +1,25 @@
 import React from "react";
 import Badge from 'react-bootstrap/Badge';
 
+// Importing marked
+let marked = require("marked");
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    // Intialise state within constructor
     this.state = {
       markdown: "",
     };
   }
-
+  // Method
   updateMarkdown(markdown) {
     this.setState({ markdown });
   }
 
   render() {
+    // Method & additionals
+    // Input object
     var inputStyle = {
       width: "400px",
       height: "50vh",
@@ -21,6 +27,7 @@ export default class App extends React.Component {
       marginRight: "auto",
       padding: "10px",
     };
+    // Preview object
     var outputStyle = {
       width: "400px",
       height: "50vh",
@@ -37,7 +44,7 @@ export default class App extends React.Component {
             <div className="col text-center">
               <h1>
                 {" "}
-                <Badge variant="primary" className="text-align-center">
+                <Badge style={{color: 'black'}} variant="primary" className="text-align-center">
                   Markdown Previewer
                 </Badge>
               </h1>
@@ -49,7 +56,7 @@ export default class App extends React.Component {
               {" "}
               <div className="col text-center">
                 <h4>
-                  <Badge text="dark" className="text-align-center" variant="secondary">
+                  <Badge style={{color: 'black'}} className="text-align-center" variant="secondary">
                     Markdown Input
                   </Badge>
                 </h4>
@@ -63,8 +70,6 @@ export default class App extends React.Component {
                     this.updateMarkdown(e.target.value);
                   }}
                 >
-                  {" "}
-                  {console.log(this.state.markdown)}
                 </textarea>
               </div>
             </div>
@@ -73,12 +78,15 @@ export default class App extends React.Component {
               {" "}
               <div className="col text-center">
                 <h4>
-                  <Badge bclassName="text-align-center" variant="secondary">
+                  <Badge style={{color: 'black'}} bclassName="text-align-center" variant="secondary">
                     Preview
                   </Badge>
                 </h4>
               </div>
-              <div style={outputStyle}></div>
+              <div style={outputStyle}
+                dangerouslySetInnerHTML={{ __html: marked(this.state.markdown) }}
+                >
+              </div>
             </div>
           </div>
         </div>
